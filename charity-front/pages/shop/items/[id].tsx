@@ -19,26 +19,18 @@ import {
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { MdLocalShipping } from 'react-icons/md';
 import SidebarWithHeader from '../../../components/NavbarTwo';
-export default function Simple() {
+import Carousel from '../../../components/carousel';
+
+export default function ItemDetail() {
   return (
-    <SidebarWithHeader>
+    // <SidebarWithHeader>
         <Container maxW={'7xl'}>
           <SimpleGrid
             columns={{ base: 1, lg: 2 }}
             spacing={{ base: 8, md: 10 }}
             py={{ base: 18, md: 24 }}>
             <Flex>
-              <Image
-                rounded={'md'}
-                alt={'product image'}
-                src={
-                  'https://images.unsplash.com/photo-1596516109370-29001ec8ec36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE1MDl8MHwxfGFsbHx8fHx8fHx8fDE2Mzg5MzY2MzE&ixlib=rb-1.2.1&q=80&w=1080'
-                }
-                fit={'cover'}
-                align={'center'}
-                w={'100%'}
-                h={{ base: '100%', sm: '400px', lg: '500px' }}
-              />
+                <Carousel/>
             </Flex>
             <Stack spacing={{ base: 6, md: 10 }}>
               <Box as={'header'}>
@@ -52,7 +44,7 @@ export default function Simple() {
                   color={useColorModeValue('gray.900', 'gray.400')}
                   fontWeight={300}
                   fontSize={'2xl'}>
-                  $350.00 USD
+                  ₮350000.00
                 </Text>
               </Box>
 
@@ -65,13 +57,7 @@ export default function Simple() {
                   />
                 }>
                 <VStack spacing={{ base: 4, sm: 6 }}>
-                  <Text
-                    color={useColorModeValue('gray.500', 'gray.400')}
-                    fontSize={'2xl'}
-                    fontWeight={'300'}>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore
-                  </Text>
+              
                   <Text fontSize={'lg'}>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
                     aliquid amet at delectus doloribus dolorum expedita hic, ipsum
@@ -86,75 +72,51 @@ export default function Simple() {
                     fontWeight={'500'}
                     textTransform={'uppercase'}
                     mb={'4'}>
-                    Features
-                  </Text>
-
-                  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                    <List spacing={2}>
-                      <ListItem>Chronograph</ListItem>
-                      <ListItem>Master Chronometer Certified</ListItem>{' '}
-                      <ListItem>Tachymeter</ListItem>
-                    </List>
-                    <List spacing={2}>
-                      <ListItem>Anti‑magnetic</ListItem>
-                      <ListItem>Chronometer</ListItem>
-                      <ListItem>Small seconds</ListItem>
-                    </List>
-                  </SimpleGrid>
-                </Box>
-                <Box>
-                  <Text
-                    fontSize={{ base: '16px', lg: '18px' }}
-                    color={useColorModeValue('yellow.500', 'yellow.300')}
-                    fontWeight={'500'}
-                    textTransform={'uppercase'}
-                    mb={'4'}>
-                    Product Details
+                    Барааны мэдээлэл
                   </Text>
 
                   <List spacing={2}>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Between lugs:
+                        Шинэ эсэх:
                       </Text>{' '}
-                      20 mm
+                      Шинэ
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Bracelet:
+                        Төрөл:
                       </Text>{' '}
-                      leather strap
+                      Гоёлын хэрэгсэл
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Case:
+                        Материал:
                       </Text>{' '}
-                      Steel
+                      Төмөр
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Case diameter:
+                        Хэмжээ:
                       </Text>{' '}
-                      42 mm
+                      2.5 м
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Dial color:
+                        Өнгө:
                       </Text>{' '}
-                      Black
+                      Хар
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Crystal:
+                        Хэдэн ширхэг байгаа:
                       </Text>{' '}
-                      Domed, scratch‑resistant sapphire crystal with anti‑reflective
-                      treatment inside
+                      200
                     </ListItem>
                     <ListItem>
                       <Text as={'span'} fontWeight={'bold'}>
-                        Water resistance:
+                        Үйлдвэрлэгдсэн он:
                       </Text>{' '}
-                      5 bar (50 metres / 167 feet){' '}
+                      2020.5.1{' '}
                     </ListItem>
                   </List>
                 </Box>
@@ -173,16 +135,16 @@ export default function Simple() {
                   transform: 'translateY(2px)',
                   boxShadow: 'lg',
                 }}>
-                Add to cart
+                Захиалах
               </Button>
 
               <Stack direction="row" alignItems="center" justifyContent={'center'}>
                 <MdLocalShipping />
-                <Text>2-3 business days delivery</Text>
+                <Text>Та 5 цагийн дотор ирж бараагаа авна уу</Text>
               </Stack>
             </Stack>
           </SimpleGrid>
         </Container>
-    </SidebarWithHeader>
+    // </SidebarWithHeader>
   );
 }

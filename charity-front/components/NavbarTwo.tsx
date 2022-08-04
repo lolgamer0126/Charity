@@ -63,6 +63,7 @@ const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
       px={2}
       py={1}
       rounded={'md'}
+      _visited={{ color: "purple.600" }}
       _hover={{
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),

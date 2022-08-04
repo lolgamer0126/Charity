@@ -1,9 +1,10 @@
-import {Heading, Box, SimpleGrid} from "@chakra-ui/react";
+import {Heading, Box, SimpleGrid, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure} from "@chakra-ui/react";
 import SidebarWithHeader from "../components/NavbarTwo";
 import ProductSimple from "../components/ProductPreview";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {useEffect, useState} from "react";
-
+import {Text} from "@chakra-ui/react";
+import ItemDetail from './shop/items/[id]';
 interface Product {
     name: string;
     image: string;
@@ -122,14 +123,15 @@ const Shop = () => {
             }
         ]);
     };
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     useEffect(() => {
         fetchMoreData();
     }, []);
+
     return (
         <SidebarWithHeader>
             <Box>
-                <Heading>Shop</Heading>
                 <InfiniteScroll
                     dataLength={items.length}
                     next={fetchMoreData}
@@ -139,14 +141,33 @@ const Shop = () => {
                         {/* <ProductSimple /> */}
                         {
                             items.map(item => {
-                                return <ProductSimple key={item.id} {...item}/>
+                                return (
+                                    <div onClick={onOpen} key={item.id} >
+                                        <ProductSimple key={item.id} {...item}/>
+                                    </div>
+                                )
                             })
                         }
                     </SimpleGrid>
                 </InfiniteScroll>
             </Box>
-        </SidebarWithHeader>
+        
+        <Modal size={'6xl'} scrollBehavior="inside" blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            <ItemDetail/>
+          </ModalBody>
 
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Хаах
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </SidebarWithHeader>
     );
 }
 export default Shop;
