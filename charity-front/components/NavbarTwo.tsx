@@ -187,7 +187,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      <NavLink link='/love' >Хайр</NavLink>
       <NavLink link='/ad' >Сурталчилгаа</NavLink>
       <Spacer/>
 

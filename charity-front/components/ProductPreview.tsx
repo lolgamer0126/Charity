@@ -59,6 +59,7 @@ export default function ProductSimple({ name, image, description, id, price, qua
             width={282}
             objectFit={'cover'}
             src={image}
+            alt={name}
           />
         </Box>
         <Stack pt={10} align={'center'}>

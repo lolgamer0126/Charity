@@ -5,7 +5,7 @@ interface Props {
   stars?: string;
 }
 
-const Home: NextPage<Props> = ({stars}) => {
+const Test: NextPage<Props> = ({stars}) => {
   const [text, setText] = useState<String>('');
   return (
     <div>
@@ -13,10 +13,10 @@ const Home: NextPage<Props> = ({stars}) => {
      <h1>{stars}</h1>
      <a href="http://localhost:8000/auth/google">click here to login</a>
     </div>
-  )
+  ) 
 }
 
-Home.getInitialProps = async (ctx) => {
+Test.getInitialProps = async (ctx) => {
   const cookie = ctx.req?.headers['cookie'];
   if(cookie==null){
     return {stars : "no cookie"}
@@ -38,4 +38,4 @@ Home.getInitialProps = async (ctx) => {
   }
 }
 
-export default Home
+export default Test

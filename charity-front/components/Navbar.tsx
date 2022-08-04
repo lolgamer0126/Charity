@@ -15,13 +15,16 @@ import {
   useColorModeValue,
   Stack,
   VStack,
-  Text
+  Text,
+  ListItem,
+  Button
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { FiChevronDown } from 'react-icons/fi';
 import NextLink from 'next/link';
 import fetchUser from '../functions/fetchUser';
 import Cookies from 'js-cookie';
+import LoginWithGoogle from './loginButton';
 
 const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
   <NextLink href = {link} >
@@ -46,7 +49,7 @@ interface UserProps{
   id : string;
 }
 
-export default function Simple() {
+export default function SimpleNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [user, setUser] = useState<UserProps>();
@@ -59,6 +62,11 @@ export default function Simple() {
     }
     );}
   },[]);
+  const logOut = () =>{
+    Cookies.remove('user');
+    window.location.reload();
+  }
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -78,7 +86,6 @@ export default function Simple() {
               display={{ base: 'none', md: 'flex' }}>
               <NavLink link='/home' >Нүүр</NavLink>
               <NavLink link='/shop' >Дэлгүүр</NavLink>
-              <NavLink link='/love' >Хайр</NavLink>
               <NavLink link='/ad' >Сурталчилгаа</NavLink>
             </HStack>
           </HStack>
@@ -111,9 +118,19 @@ export default function Simple() {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Профайл</MenuItem>
-              <MenuDivider />
-              <MenuItem>Гарах</MenuItem>
+              {user?.id ? 
+                (
+                  <div>
+                    <MenuItem>
+                      <NextLink href = '/profile' >Профайл</NextLink>
+                    </MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={logOut} >
+                      <Text> Гарах</Text>
+                    </MenuItem>
+                  </div>
+                ) 
+              : ( <LoginWithGoogle/> )  }
             </MenuList>
           </Menu>
           </Flex>
@@ -124,7 +141,6 @@ export default function Simple() {
             <Stack as={'nav'} spacing={4}>
               <NavLink link='/home' >Нүүр</NavLink>
               <NavLink link='/shop' >Дэлгүүр</NavLink>
-              <NavLink link='/love' >Хайр</NavLink>
               <NavLink link='/ad' >Сурталчилгаа</NavLink>
             </Stack>
           </Box>
