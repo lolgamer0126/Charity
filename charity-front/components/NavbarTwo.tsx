@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -22,6 +22,8 @@ import {
   MenuItem,
   MenuList,
   Spacer,
+  Tabs,
+  TabList,
 } from '@chakra-ui/react';
 import {
   FiMenu,
@@ -34,6 +36,10 @@ import {BsLaptop, BsQuestion} from "react-icons/bs";
 import {GiElectric, GiClothes, GiSofa, GiDiamondRing} from "react-icons/gi";
 import {MdSportsBasketball, MdFastfood} from "react-icons/md";
 import {IoLogoGameControllerB} from "react-icons/io";
+import fetchUser from '../functions/fetchUser';
+import Cookies from 'js-cookie';
+import LoginWithGoogle from './loginButton';
+
 interface LinkItemProps {
   name: string;
   icon: IconType;
@@ -66,6 +72,12 @@ const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
   </NextLink>
 );
 
+interface UserProps{
+  email: string;
+  photo: string;
+  username : string;
+  id : string;
+}
 
 export default function SidebarWithHeader({
   children,
@@ -73,6 +85,16 @@ export default function SidebarWithHeader({
   children: ReactNode;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [user, setUser] = useState<UserProps>();
+
+  useEffect(() => {
+    const cookie = Cookies.get('user');
+    if(cookie){
+      fetchUser(cookie).then(result => {
+        setUser(result.user);
+    }
+    );}  },[])
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -92,7 +114,7 @@ export default function SidebarWithHeader({
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
+      <MobileNav user={user} onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
@@ -121,11 +143,16 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      <Tabs defaultIndex={1}>
+        <TabList flexDirection={'column'} >
+
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+      </TabList>
+      </Tabs>
     </Box>
   );
 };
@@ -134,6 +161,7 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+
   return (
     <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
@@ -166,8 +194,14 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
+  user: UserProps | undefined;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
+  const logOut = () =>{
+    Cookies.remove('user');
+    window.location.reload();
+  }
+
   return (
       <Flex
       ml={{ base: 0, md: 60 }}
@@ -187,7 +221,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
+      <NavLink link='/home' >Нүүр</NavLink>
       <NavLink link='/ad' >Сурталчилгаа</NavLink>
+
       <Spacer/>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -201,7 +237,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    user?.photo || 'https://media.istockphoto.com/vectors/user-icon-flat-isolated-on-white-background-user-symbol-vector-vector-id1300845620?k=20&m=1300845620&s=612x612&w=0&h=f4XTZDAv7NPuZbG0habSpU0sNgECM0X7nbKzTUta3n8='
                   }
                 />
                 <VStack
@@ -209,9 +245,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{user?.username || "Нууц хэрэглэгч" }</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {user?.id || "Нэвтрэх"}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -219,12 +255,23 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </Box>
               </HStack>
             </MenuButton>
-            <MenuList
+            <MenuList 
+              zIndex={2}
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              {user?.id ? 
+                (
+                  <div>
+                    <MenuItem>
+                      <NextLink href = '/profile' >Профайл</NextLink>
+                    </MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={logOut} >
+                      <Text> Гарах</Text>
+                    </MenuItem>
+                  </div>
+                ) 
+              : ( <LoginWithGoogle/> )  }
             </MenuList>
           </Menu>
         </Flex>

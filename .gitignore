@@ -1,3 +1,5 @@
 node_modules/
 /charity-back/node_modules/
 /charity-front/node_modules/
+charity-back/database/db.ts
+charity-back/database/db.ts
