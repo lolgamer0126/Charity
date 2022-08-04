@@ -1,6 +1,5 @@
 import SimpleNavbar from "../components/Navbar";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
-import SidebarWithHeader from '../components/NavbarTwo'
 
 const adPage = () =>{
     return(
