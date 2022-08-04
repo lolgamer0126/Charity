@@ -41,6 +41,7 @@ export default function LargeWithLogoLeft() {
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
+      p={10}
       color={useColorModeValue('gray.700', 'gray.200')}>
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid

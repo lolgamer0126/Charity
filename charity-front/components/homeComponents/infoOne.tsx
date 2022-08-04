@@ -56,22 +56,22 @@ import {
           fontSize={'4xl'}
           py={10}
           fontWeight={'bold'}>
-          Our company is expanding, you could be too.
+          Бид өдийг хүртэл үйл ажиллагаа явуулахдаа
         </chakra.h1>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
-            title={'Users'}
+            title={'Хэрэглэгч'}
             stat={'5,000'}
             icon={<BsPerson size={'3em'} />}
           />
           <StatsCard
-            title={'Servers'}
+            title={'Тусалсан хүн'}
             stat={'1,000'}
             icon={<FiServer size={'3em'} />}
           />
           <StatsCard
-            title={'Datacenters'}
-            stat={'7'}
+            title={'Цуглуулсан мөнгө'}
+            stat={'7,000,000₮'}
             icon={<GoLocation size={'3em'} />}
           />
         </SimpleGrid>
