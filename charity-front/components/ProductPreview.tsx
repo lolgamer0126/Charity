@@ -7,6 +7,7 @@ import {
     Stack,
     Image
 } from '@chakra-ui/react';
+import React from 'react';
 
 interface Product {
     name: string;

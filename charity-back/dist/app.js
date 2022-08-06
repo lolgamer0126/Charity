@@ -45,7 +45,7 @@ app.use(passport_1.default.session());
 passport_1.default.use(new GoogleOauth({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:8000/auth/google/callback"
+    callbackURL: "http://ochmo.website:8000/auth/google/callback"
 }, function (accessToken, refreshToken, profile, done) {
     const userProfile = profile;
     return done(null, userProfile);
@@ -68,12 +68,12 @@ app.get('/auth/google/callback', passport_1.default.authenticate('google', { fai
         try {
             const check = yield db_1.default.query(`SELECT uniqueID FROM users WHERE email='${email}'`);
             if (check.rowCount) {
-                res.cookie('user', check.rows[0].uniqueid).redirect('http://localhost:3000/');
+                res.cookie('user', check.rows[0].uniqueid).redirect('http://ochmo.website:3000/');
             }
             else {
                 const uniqueID = (0, uuid_1.v4)();
                 const resp = yield db_1.default.query(`INSERT INTO users (username, email, photo, uniqueID) VALUES ('${username}', '${email}', '${photo}', '${uniqueID}')`);
-                res.cookie('user', uniqueID).redirect('http://localhost:3000/');
+                res.cookie('user', uniqueID).redirect('http://ochmo.website:3000/');
             }
         }
         catch (error) {
@@ -98,5 +98,5 @@ passport_1.default.deserializeUser(function (obj, cb) {
     cb(null, obj);
 });
 app.listen(8000, () => {
-    console.log('api working on http://localhost:8000');
+    console.log('api working on http://ochmo.website:8000');
 });

@@ -25,6 +25,7 @@ import NextLink from 'next/link';
 import fetchUser from '../functions/fetchUser';
 import Cookies from 'js-cookie';
 import LoginWithGoogle from './loginButton';
+import React from 'react';
 
 const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
   <NextLink href = {link} >

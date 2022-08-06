@@ -8,6 +8,7 @@ import {
     Text,
     useBreakpointValue
 } from '@chakra-ui/react';
+import React from 'react';
 import {useEffect} from 'react';
 import LoginWithGoogle from '../components/loginButton';
 
