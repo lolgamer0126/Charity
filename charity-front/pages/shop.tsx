@@ -4,7 +4,7 @@ import ProductSimple from "../components/ProductPreview";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {useEffect, useState} from "react";
 import {Text} from "@chakra-ui/react";
-import ItemDetail from './shop/items/[id]';
+import ItemDetail from '../components/itemDetail';
 interface Product {
     name: string;
     image: string;

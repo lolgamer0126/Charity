@@ -18,8 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { MdLocalShipping } from 'react-icons/md';
-import SidebarWithHeader from '../../../components/NavbarTwo';
-import Carousel from '../../../components/carousel';
+import SidebarWithHeader from './NavbarTwo';
+import Carousel from './carousel';
 
 export default function ItemDetail() {
   return (

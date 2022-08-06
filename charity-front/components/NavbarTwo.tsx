@@ -223,6 +223,8 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
       <NavLink link='/home' >Нүүр</NavLink>
+      <NavLink link='/shop' >Дэлгүүр</NavLink>
+
       <NavLink link='/ad' >Сурталчилгаа</NavLink>
 
       <Spacer/>
