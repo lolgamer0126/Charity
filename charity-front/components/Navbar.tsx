@@ -85,9 +85,9 @@ export default function SimpleNavbar() {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              <NavLink link='/home' >Нүүр</NavLink>
               <NavLink link='/shop' >Дэлгүүр</NavLink>
               <NavLink link='/ad' >Сурталчилгаа</NavLink>
+              <NavLink link='/about' >Бидний тухай</NavLink>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>

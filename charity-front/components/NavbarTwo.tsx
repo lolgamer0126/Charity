@@ -144,7 +144,7 @@ const SidebarContent = ({ category ,onClose, ...rest }: SidebarProps) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          <NextLink href='/shop' >Дэлгүүр</NextLink>
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -262,10 +262,8 @@ const MobileNav = ({ onOpen, user, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      <NavLink link='/home' >Нүүр</NavLink>
-      <NavLink link='/shop' >Дэлгүүр</NavLink>
-
       <NavLink link='/ad' >Сурталчилгаа</NavLink>
+      <NavLink link='/about' >Бидний тухай</NavLink>
 
       <Spacer/>
 
