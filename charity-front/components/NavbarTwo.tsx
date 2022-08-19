@@ -43,18 +43,19 @@ import LoginWithGoogle from './loginButton';
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  id: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Цахилгаан бараа', icon: GiElectric },
-  { name: 'Компьютер, дагалдах хэрэгсэл', icon: BsLaptop },
-  { name: 'Хувцас', icon: GiClothes },
-  { name: 'Гэр ахуйн бараа', icon: FiScissors },
-  { name: 'Тавилга', icon: GiSofa },
-  { name: 'Cпорт', icon: MdSportsBasketball },
-  { name: 'Үнэт эдлэл', icon: GiDiamondRing },
-  { name: 'Хүнс', icon: MdFastfood },
-  { name: 'Тоглоом', icon: IoLogoGameControllerB },
-  { name: 'Бусад', icon: BsQuestion },
+  { name: 'Цахилгаан бараа', icon: GiElectric, id: '1' },
+  { name: 'Компьютер, дагалдах хэрэгсэл', icon: BsLaptop, id: '2' },
+  { name: 'Хувцас', icon: GiClothes, id: '3' },
+  { name: 'Гэр ахуйн бараа', icon: FiScissors, id: '4' },
+  { name: 'Тавилга', icon: GiSofa, id: '5' },
+  { name: 'Cпорт', icon: MdSportsBasketball, id: '6' },
+  { name: 'Үнэт эдлэл', icon: GiDiamondRing, id: '7' },
+  { name: 'Хүнс', icon: MdFastfood, id: '8' },
+  { name: 'Тоглоом', icon: IoLogoGameControllerB, id: '9' },
+  { name: 'Бусад', icon: BsQuestion, id: '10' },
 ];
 
 const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
@@ -81,9 +82,10 @@ interface UserProps{
 }
 
 export default function SidebarWithHeader({
-  children,
+  children, category
 }: {
   children: ReactNode;
+  category: string | undefined | string[];
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<UserProps>();
@@ -101,6 +103,7 @@ export default function SidebarWithHeader({
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
+        category={category}
       />
       <Drawer
         autoFocus={false}
@@ -111,7 +114,7 @@ export default function SidebarWithHeader({
         onOverlayClick={onClose}
         size="full">
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent onClose={onClose} category={category} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
@@ -124,10 +127,11 @@ export default function SidebarWithHeader({
 }
 
 interface SidebarProps extends BoxProps {
+  category: string | undefined | string[];
   onClose: () => void;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ category ,onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
@@ -148,7 +152,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <TabList flexDirection={'column'} >
 
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem category={category} key={link.name} icon={link.icon} id={link.id}>
             {link.name}
           </NavItem>
         ))}
@@ -160,17 +164,20 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
+  category: string | undefined | string[];
+  id: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
-
-  return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+const NavItem = ({ icon, children, category ,id ,...rest }: NavItemProps) => {
+  if(id === category){
+    return (
+    <Link as={NextLink} href={`/shop/${id}`} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
         mx="4"
         borderRadius="lg"
         role="group"
+        bg="cyan.400"
         cursor="pointer"
         _hover={{
           bg: 'cyan.400',
@@ -190,7 +197,40 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Link>
+  )
+  }
+  else{
+
+    return (
+      <Link as={NextLink} href={`/shop/${id}`} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+      <Flex
+        align="center"
+        p="4"
+        mx="4"
+        borderRadius="lg"
+        role="group"
+        // bg="cyan.400"
+        cursor="pointer"
+        _hover={{
+          bg: 'cyan.400',
+          color: 'white',
+        }}
+        {...rest}>
+        {icon && (
+          <Icon
+          mr="4"
+            fontSize="16"
+            _groupHover={{
+              color: 'white',
+            }}
+            as={icon}
+          />
+          )}
+        {children}
+      </Flex>
+    </Link>
   );
+  }
 };
 
 interface MobileProps extends FlexProps {
