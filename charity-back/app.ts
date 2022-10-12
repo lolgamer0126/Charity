@@ -46,15 +46,21 @@ passport.use(new GoogleOauth({
 
 app.get('/', function(req, res) {
   const userID = req.headers.cookie?.substring(5, 41)
-  // console.log(userID);
   res.json({message: "atleast it's working"});
 });
   
 app.get('/success', (req, res) => res.send(req.user));
 app.get('/error', (req, res) => res.send("error logging in"));
-app.get('/auth/google', 
-  passport.authenticate('google', { scope : ['profile', 'email'] }));
+// app.get('/auth/google', 
+//   passport.authenticate('google', { scope : ['profile', 'email'] }));
  
+app.get('/auth/google', (req, res)=>{
+  console.log('req arrived')
+  return passport.authenticate('google', { scope : ['profile', 'email'] })
+
+});
+ 
+
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/error' }),
   async function(req: TypedRequestUser<{

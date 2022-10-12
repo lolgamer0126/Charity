@@ -1,11 +1,18 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const pg_1 = require("pg");
-const pool = new pg_1.Pool({
-    user: "ochmo",
-    database: "test",
-    password: "Nuuts123",
-    port: 5432,
+const mysql_1 = __importDefault(require("mysql"));
+const sql = mysql_1.default.createConnection({
     host: "localhost",
+    user: "root",
+    password: "",
+    database: "Charity"
 });
-exports.default = pool;
+sql.connect((err) => {
+    if (err)
+        throw err;
+    console.log("Connected!");
+});
+exports.default = sql;

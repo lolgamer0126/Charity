@@ -53,12 +53,16 @@ passport_1.default.use(new GoogleOauth({
 app.get('/', function (req, res) {
     var _a;
     const userID = (_a = req.headers.cookie) === null || _a === void 0 ? void 0 : _a.substring(5, 41);
-    // console.log(userID);
     res.json({ message: "atleast it's working" });
 });
 app.get('/success', (req, res) => res.send(req.user));
 app.get('/error', (req, res) => res.send("error logging in"));
-app.get('/auth/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));
+// app.get('/auth/google', 
+//   passport.authenticate('google', { scope : ['profile', 'email'] }));
+app.get('/auth/google', (req, res) => {
+    console.log('req arrived');
+    return passport_1.default.authenticate('google', { scope: ['profile', 'email'] });
+});
 app.get('/auth/google/callback', passport_1.default.authenticate('google', { failureRedirect: '/error' }), function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = req.user;

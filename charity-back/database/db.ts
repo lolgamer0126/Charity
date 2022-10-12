@@ -1,11 +1,14 @@
-import { Pool } from 'pg'
+import mysql from 'mysql';
 
-const pool = new Pool({
-  user: "ochmo",
-  database: "test",
-  password: "Nuuts123",
-  port: 5432,
+const sql = mysql.createConnection({
   host: "localhost",
+  user: "root",
+  password: "",
+  database: "Charity"
 });
 
-export default pool;
+sql.connect( (err) => {
+  if (err) throw err;
+  console.log("Connected!");
+});
+export default sql;

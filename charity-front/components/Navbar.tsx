@@ -88,6 +88,8 @@ export default function SimpleNavbar() {
               <NavLink link='/shop' >Дэлгүүр</NavLink>
               <NavLink link='/ad' >Сурталчилгаа</NavLink>
               <NavLink link='/about' >Бидний тухай</NavLink>
+              <NavLink link='/story' >Түүхүүд</NavLink>
+
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -143,6 +145,8 @@ export default function SimpleNavbar() {
               <NavLink link='/home' >Нүүр</NavLink>
               <NavLink link='/shop' >Дэлгүүр</NavLink>
               <NavLink link='/ad' >Сурталчилгаа</NavLink>
+              <NavLink link='/story' >Түүхүүд</NavLink>
+
             </Stack>
           </Box>
         ) : null}

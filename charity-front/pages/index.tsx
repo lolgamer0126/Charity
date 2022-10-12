@@ -13,8 +13,7 @@ import {useEffect} from 'react';
 import LoginWithGoogle from '../components/loginButton';
 
 export default function SplitScreen() {
-
-    useEffect(() => {}, [])
+    const clientId = '411255982749-uem7h7b4j3h8ngone58qs2dnlcvejrql.apps.googleusercontent.com'
 
     return (
         <Stack
